@@ -1,9 +1,14 @@
-const fs = require ("fs").promises;
+const fs = require("fs").promises;
 
 const fetchUsers = async () => {
-    const data = await fs.readFile("./data/users.json")
-    const users = JSON.parse(data)
-    return users
-}
+  try {
+    const data = await fs.readFile("./data/users.json");
+    const users = JSON.parse(data);
+    return users;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Unable to fetch users");
+  }
+};
 
-module.exports = fetchUsers
+module.exports = fetchUsers;
