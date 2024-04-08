@@ -35,7 +35,6 @@ export const LoginForm = () => {
 
   return (
     <>
-        <Navigation />
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <input

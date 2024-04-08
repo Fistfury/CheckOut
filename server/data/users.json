@@ -8,5 +8,10 @@
     "email": "jonnie@gmail.com",
     "password": "$2b$12$OAtvMprYW8py2i1l6TejxeCHVP1fEsdQVlnxBcvk6Uj7QnA109MCq",
     "stripeId": "cus_Pt44gR2CHVA57N"
+  },
+  {
+    "email": "jonnie@gmail.se",
+    "password": "$2b$12$AUbGUF9rW9wQxyl4iB.0DOogG.fdiVXoFfM2tc24YcQmB53Ise3AK",
+    "stripeId": "cus_Pt6bxB8b0xR07l"
   }
 ]

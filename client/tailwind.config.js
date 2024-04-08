@@ -1,11 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [],
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
     extend: {
+      fontSize : {
+        xxs: '0.65rem',
+      },
       colors: {
-        'beard-dark': '#603321',
-        'beard-grey': '#545449',
+        "beard-dark": '#603321',
+        "beard-grey": '#545449',
         'beard-cream': '#c2a891',
         'beard-green': '#344747',
         'beard-brown': '#271a13',

@@ -12,7 +12,7 @@ export const RegisterForm = () => {
   const navigate = useNavigate();
 
   if (!context) {
-    throw new Error("")
+    throw new Error("");
   }
 
   const { dispatch } = context;
@@ -23,10 +23,9 @@ export const RegisterForm = () => {
         email,
         password,
       });
-      dispatch({ type: 'LOGIN', payload: { email } });
-            navigate('/');
+      dispatch({ type: "LOGIN", payload: { email } });
+      navigate("/");
       setMessage("Registration successful!");
-
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setMessage(
@@ -40,10 +39,10 @@ export const RegisterForm = () => {
 
   return (
     <>
-    <Navigation />
-      <h2>Register</h2>
+    <div className="w-full px-4 sm:max-w-md p-8 space-y-6 bg-white rounded-lg shadow">
       <form onSubmit={handleSubmit}>
         <input
+          className="w-full p-3 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-beard-dark focus:border-transparent"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -51,15 +50,22 @@ export const RegisterForm = () => {
           required
         />
         <input
+          className="w-full p-3 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-beard-dark focus:border-transparent"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
           required
         />
-        <button type="submit">Register</button>
+        <button
+          className="w-full p-3 bg-beard-dark text-white rounded hover:bg-beard-darkest"
+          type="submit"
+        >
+          Register
+        </button>
         {message && <p>{message}</p>}
       </form>
+      </div>
     </>
   );
 };
