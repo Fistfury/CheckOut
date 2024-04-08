@@ -2,6 +2,7 @@ import { useState, FormEvent, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
+import { Navigation } from "../utils/Navigation";
 
 export const RegisterForm = () => {
   const [email, setEmail] = useState("");
@@ -18,7 +19,7 @@ export const RegisterForm = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3001/api/users/register", {
+      await axios.post("http://localhost:3000/api/auth/register", {
         email,
         password,
       });
@@ -38,7 +39,8 @@ export const RegisterForm = () => {
   };
 
   return (
-    <div>
+    <>
+    <Navigation />
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -58,6 +60,6 @@ export const RegisterForm = () => {
         <button type="submit">Register</button>
         {message && <p>{message}</p>}
       </form>
-    </div>
+    </>
   );
 };

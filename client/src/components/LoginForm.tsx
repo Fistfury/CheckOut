@@ -2,6 +2,7 @@ import { useState, FormEvent, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
+import { Navigation } from "../utils/Navigation";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ export const LoginForm = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3001/api/users/login", {
+      await axios.post("http://localhost:3000/api/auth/login", {
         email,
         password,
       });
@@ -24,16 +25,17 @@ export const LoginForm = () => {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setMessage(
-          error.response?.data.error || "An unexpected error occurred"
+          error.response?.data.error ||  "Wrong password or email"
         );
       } else {
-        setMessage("An unexpected error occurred");
+        setMessage("Wrong password or email");
       }
     }
   };
 
   return (
-    <div>
+    <>
+        <Navigation />
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -53,6 +55,6 @@ export const LoginForm = () => {
         <button type="submit">Login</button>
         {message && <p>{message}</p>}
       </form>
-    </div>
+    </>
   );
 };

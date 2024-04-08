@@ -1,7 +1,7 @@
 const fetchUsers = require("../utils/fetchUsers");
 const fs = require("fs").promises;
 const bcrypt = require("bcrypt");
-const initStripe = require("../utils/initStripe");
+const stripe = require("../utils/initStripe");
 
 const register = async (req, res) => {
   try {
@@ -18,8 +18,7 @@ const register = async (req, res) => {
     }
 
     const haschedPassword = await bcrypt.hash(password, 12);
-    const stripe = initStripe();
-    const stripeCustomer = await stripe.customer.create({ email });
+    const stripeCustomer = await stripe.customers.create({ email });
 
     const newUser = {
       email,

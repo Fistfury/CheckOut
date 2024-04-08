@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "email": "yesSir@gmail.com",
+    "password": "$2b$12$pYpJMJBdxbAZ.4djxvUTJeptC1oy8zebz9lNYll9QIfXYyAEpfemy",
+    "stripeId": "cus_Pt43CR8Mpd9FTZ"
+  },
+  {
+    "email": "jonnie@gmail.com",
+    "password": "$2b$12$OAtvMprYW8py2i1l6TejxeCHVP1fEsdQVlnxBcvk6Uj7QnA109MCq",
+    "stripeId": "cus_Pt44gR2CHVA57N"
+  }
+]
