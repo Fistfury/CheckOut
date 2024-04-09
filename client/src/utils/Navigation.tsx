@@ -1,10 +1,15 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import { FaShoppingCart } from "react-icons/fa";
+import { Modal } from "../components/Modal";
+import { LoginForm } from "../components/LoginForm";
+import { RegisterForm } from "../components/RegisterForm";
 
 export const Navigation = () => {
   const { state, dispatch } = useContext(AuthContext);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
@@ -29,12 +34,21 @@ export const Navigation = () => {
         </div>
       ) : (
         <>
-          <Link to="/login" className="mr-6">
+          <button onClick={() => setShowLoginModal(true)} className="mr-6 hover:text-white">
             Login
-          </Link>
-          <Link to="/register">Register</Link>
+          </button>
+          <button onClick={() => setShowRegisterModal(true)}>Register</button>
         </>
       )}
+      <Modal show={showLoginModal} onClose={() => setShowLoginModal(false)}>
+        <LoginForm onSuccess={() => setShowLoginModal(false)} />
+      </Modal>
+      <Modal
+        show={showRegisterModal}
+        onClose={() => setShowRegisterModal(false)}
+      >
+        <RegisterForm onSuccess={() => setShowRegisterModal(false)} />
+      </Modal>
     </nav>
   );
 };

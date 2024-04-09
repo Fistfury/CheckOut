@@ -5,6 +5,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Roboto', 'sans-serif'],
+        serif: ['Merriweather', 'serif']
+      },
       fontSize : {
         xxs: '0.65rem',
       },

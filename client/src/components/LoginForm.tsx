@@ -2,9 +2,13 @@ import { useState, FormEvent, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
-import { Navigation } from "../utils/Navigation";
+import { IconicBtn } from "./IconicBtn";
 
-export const LoginForm = () => {
+interface LoginFormProps {
+  onSuccess: () => void;
+}
+
+export const LoginForm = ({ onSuccess }: LoginFormProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -20,13 +24,12 @@ export const LoginForm = () => {
         email,
         password,
       });
-      dispatch({ type: "LOGIN", payload:{ email } });
+      dispatch({ type: "LOGIN", payload: { email } });
+      onSuccess();
       navigate("/");
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        setMessage(
-          error.response?.data.error ||  "Wrong password or email"
-        );
+        setMessage(error.response?.data.error || "Wrong password or email");
       } else {
         setMessage("Wrong password or email");
       }
@@ -35,25 +38,29 @@ export const LoginForm = () => {
 
   return (
     <>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        <button type="submit">Login</button>
-        {message && <p>{message}</p>}
-      </form>
+      <div className="w-full px-4 sm:max-w-md p-8 space-y-6 bg-white rounded-lg shadow">
+      <h1 className="text-2xl font-bold text-center my-4 text-beard-dark">Login</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            className="w-full p-3 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-beard-dark focus:border-transparent"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+          />
+          <input
+            className="w-full p-3 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-beard-dark focus:border-transparent"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            required
+          />
+         <IconicBtn/>
+          {message && <p>{message}</p>}
+        </form>
+      </div>
     </>
   );
 };

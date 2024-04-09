@@ -2,9 +2,13 @@ import { useState, FormEvent, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
-import { Navigation } from "../utils/Navigation";
+import { FaCheckCircle } from "react-icons/fa";
 
-export const RegisterForm = () => {
+interface RegisterFormProps {
+  onSuccess: () => void;
+}
+
+export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -24,6 +28,7 @@ export const RegisterForm = () => {
         password,
       });
       dispatch({ type: "LOGIN", payload: { email } });
+      onSuccess();
       navigate("/");
       setMessage("Registration successful!");
     } catch (error) {
@@ -40,6 +45,7 @@ export const RegisterForm = () => {
   return (
     <>
     <div className="w-full px-4 sm:max-w-md p-8 space-y-6 bg-white rounded-lg shadow">
+    <h1 className="text-2xl font-bold text-center my-4 text-beard-dark">Register</h1>
       <form onSubmit={handleSubmit}>
         <input
           className="w-full p-3 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-beard-dark focus:border-transparent"
@@ -61,7 +67,7 @@ export const RegisterForm = () => {
           className="w-full p-3 bg-beard-dark text-white rounded hover:bg-beard-darkest"
           type="submit"
         >
-          Register
+          <FaCheckCircle className="flex justify-center align-items-center"/>
         </button>
         {message && <p>{message}</p>}
       </form>

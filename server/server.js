@@ -21,9 +21,16 @@ app.use("/api/users", userRoutes)
 
 app.use(cookieSession({
     secret: "s3cr3tk3y",
-    maxAge: 1000* 60 * 60,
+    maxAge: 1000* 60 * 60
+}))
+
+app.get("/products", async (req, res) => {
+    const products = await stripe.products.list({
+        expand: ["data.default_price"]
+    })
+    res.status(200).json(products)
 })
    
-)
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`server is running on ${PORT}`))
