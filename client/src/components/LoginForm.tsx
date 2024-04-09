@@ -44,7 +44,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
         </h1>
         <form onSubmit={handleSubmit}>
           <input
-            className="w-full p-3 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-beard-dark focus:border-transparent"
+            className="w-full p-3 mb-4 border border-beard-grey rounded focus:outline-none focus:ring-2 focus:ring-beard-dark focus:border-transparent"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -52,7 +52,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
             required
           />
           <input
-            className="w-full p-3 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-beard-dark focus:border-transparent"
+            className="w-full p-3 mb-4 border border-beard-grey rounded focus:outline-none focus:ring-2 focus:ring-beard-dark focus:border-transparent"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -60,7 +60,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
             required
           />
           <IconicBtn />
-          {message && <p>{message}</p>}
+          {message && <p className="text-red-500">{message}</p>}
         </form>
       </div>
     </>

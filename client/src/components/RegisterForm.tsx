@@ -2,7 +2,7 @@ import { useState, FormEvent, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { FaCheckCircle } from "react-icons/fa";
+import { IconicBtn } from "./IconicBtn";
 
 interface RegisterFormProps {
   onSuccess: () => void;
@@ -50,7 +50,7 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
         </h1>
         <form onSubmit={handleSubmit}>
           <input
-            className="w-full p-3 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-beard-dark focus:border-transparent"
+            className="w-full p-3 mb-4 border border-beard-grey rounded focus:outline-none focus:ring-2 focus:ring-beard-dark focus:border-transparent"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -58,20 +58,16 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
             required
           />
           <input
-            className="w-full p-3 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-beard-dark focus:border-transparent"
+            className="w-full p-3 mb-4 border border-beard-grey rounded focus:outline-none focus:ring-2 focus:ring-beard-dark focus:border-transparent"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             required
           />
-          <button
-            className="w-full p-3 bg-beard-dark text-white rounded hover:bg-beard-darkest"
-            type="submit"
-          >
-            <FaCheckCircle className="flex justify-center align-items-center" />
-          </button>
-          {message && <p>{message}</p>}
+
+          <IconicBtn />
+          {message && <p className="text-red-500">{message}</p>}
         </form>
       </div>
     </>

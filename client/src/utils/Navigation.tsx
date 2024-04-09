@@ -17,7 +17,7 @@ export const Navigation = () => {
 
   const cartCount = 3;
   return (
-    <nav className="bg-beard-green text-beard-cream p-2 flex justify-end items-center text-sm">
+    <nav className="bg-beard-brown text-beard-cream p-2 flex justify-end items-center text-sm">
       {state.isAuthenticated ? (
         <div className="flex items-center space-x-2">
           <div className="relative inline-block">
@@ -36,11 +36,16 @@ export const Navigation = () => {
         <>
           <button
             onClick={() => setShowLoginModal(true)}
-            className="mr-6 hover:text-white"
+            className="mr-6 hover:text-beard-orange"
           >
             Login
           </button>
-          <button onClick={() => setShowRegisterModal(true)}>Register</button>
+          <button
+            onClick={() => setShowRegisterModal(true)}
+            className="hover:text-beard-orange"
+          >
+            Register
+          </button>
         </>
       )}
       <Modal show={showLoginModal} onClose={() => setShowLoginModal(false)}>

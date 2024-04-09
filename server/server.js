@@ -4,7 +4,8 @@ const cookieSession = require("cookie-session")
 const cors = require("cors")
 
 const authRoutes = require("./routes/authRoutes")
-const userRoutes = require("./routes/usersRoutes")
+const userRoutes = require("./routes/usersRoutes");
+const stripeRoutes = require("./routes/stripeRoutes")
 
 const app = express()
 
@@ -24,12 +25,7 @@ app.use(cookieSession({
     maxAge: 1000* 60 * 60
 }))
 
-app.get("/products", async (req, res) => {
-    const products = await stripe.products.list({
-        expand: ["data.default_price"]
-    })
-    res.status(200).json(products)
-})
+app.use("/api/stripe", stripeRoutes)
    
 
 const PORT = process.env.PORT || 3001;

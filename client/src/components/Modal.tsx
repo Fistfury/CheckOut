@@ -7,7 +7,6 @@ interface ModalProps {
 export const Modal = ({show, onClose, children}: ModalProps) => {
 if (!show) return null;
 const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    // Ensure that the click is on the backdrop itself and not on any child elements
     if (event.currentTarget === event.target) {
         onClose();
     }
@@ -15,10 +14,10 @@ const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>
 
 return (
     <>
-     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center"
+    <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center"
      onClick={handleBackdropClick}>
-      <div className="bg-white p-6 rounded-lg shadow-md m-4 relative">
-        <button onClick={onClose} className="absolute top-0 right-0 p-4 text-2xl">&times;</button>
+      <div onClick={(e) => e.stopPropagation()} className="bg-white p-6 rounded-lg shadow-lg m-4 relative max-w-md w-full">
+        <button onClick={onClose} className="absolute top-0 right-0 p-4 text-2xl text-beard-dark hover:text-beard-orange">&times;</button>
         {children}
       </div>
     </div>
