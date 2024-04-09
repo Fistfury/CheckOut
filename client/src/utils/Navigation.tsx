@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../context/authContext";
 import { FaShoppingCart } from "react-icons/fa";
 import { Modal } from "../components/Modal";
 import { LoginForm } from "../components/LoginForm";
 import { RegisterForm } from "../components/RegisterForm";
+import { AuthContext } from "../context/AuthContext";
 
 export const Navigation = () => {
   const { state, dispatch } = useContext(AuthContext);
@@ -34,7 +34,10 @@ export const Navigation = () => {
         </div>
       ) : (
         <>
-          <button onClick={() => setShowLoginModal(true)} className="mr-6 hover:text-white">
+          <button
+            onClick={() => setShowLoginModal(true)}
+            className="mr-6 hover:text-white"
+          >
             Login
           </button>
           <button onClick={() => setShowRegisterModal(true)}>Register</button>

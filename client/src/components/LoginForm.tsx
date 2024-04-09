@@ -1,8 +1,8 @@
 import { useState, FormEvent, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/authContext";
 import { IconicBtn } from "./IconicBtn";
+import { AuthContext } from "../context/AuthContext"
 
 interface LoginFormProps {
   onSuccess: () => void;
@@ -39,7 +39,9 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
   return (
     <>
       <div className="w-full px-4 sm:max-w-md p-8 space-y-6 bg-white rounded-lg shadow">
-      <h1 className="text-2xl font-bold text-center my-4 text-beard-dark">Login</h1>
+        <h1 className="text-2xl font-bold text-center my-4 text-beard-dark">
+          Login
+        </h1>
         <form onSubmit={handleSubmit}>
           <input
             className="w-full p-3 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-beard-dark focus:border-transparent"
@@ -57,7 +59,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
             placeholder="Password"
             required
           />
-         <IconicBtn/>
+          <IconicBtn />
           {message && <p>{message}</p>}
         </form>
       </div>
