@@ -2,7 +2,7 @@ POST http://localhost:3000/api/auth/register
 Content-Type: application/json
 
 {
-    "email": "yesSir@gmail.com",
+    "email": "yalla@gmail.com",
     "password": "65346364363"
 }
 
@@ -14,3 +14,5 @@ Content-Type: application/json
      "email": "yesSir@gmail.com",
     "password": "65346364363"
 }
+###
+POST http://localhost:3000/api/stripe/checkout

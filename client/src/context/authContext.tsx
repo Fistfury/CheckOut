@@ -1,25 +1,28 @@
-import { createContext, useReducer, Dispatch, ReactNode } from "react";
+import { createContext, useReducer, useContext, ReactNode } from "react";
+
+interface User {
+  email: string;
+  stripeId?: string; 
+}
 
 interface AuthState {
   isAuthenticated: boolean;
-  user: { email: string } | null;
+  user: User | null;
 }
 
 type AuthAction =
-  | { type: "LOGIN"; payload: { email: string } }
+  | { type: "LOGIN"; payload: User }
   | { type: "LOGOUT" };
-
-interface AuthContextType {
-  state: AuthState;
-  dispatch: Dispatch<AuthAction>;
-}
 
 const initialState: AuthState = {
   isAuthenticated: false,
   user: null,
 };
 
-export const AuthContext = createContext<AuthContextType>({
+const AuthContext = createContext<{
+  state: AuthState;
+  dispatch: React.Dispatch<AuthAction>;
+}>({
   state: initialState,
   dispatch: () => {},
 });
@@ -27,17 +30,9 @@ export const AuthContext = createContext<AuthContextType>({
 const authReducer = (state: AuthState, action: AuthAction): AuthState => {
   switch (action.type) {
     case "LOGIN":
-      return {
-        ...state,
-        isAuthenticated: true,
-        user: { email: action.payload.email },
-      };
+      return { ...state, isAuthenticated: true, user: action.payload };
     case "LOGOUT":
-      return {
-        ...state,
-        isAuthenticated: false,
-        user: null,
-      };
+      return { ...state, isAuthenticated: false, user: null };
     default:
       throw new Error("Unhandled action type");
   }
@@ -56,3 +51,5 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     </AuthContext.Provider>
   );
 };
+
+export const useAuth = () => useContext(AuthContext);

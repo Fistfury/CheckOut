@@ -1,6 +1,6 @@
-import { useState, FormEvent, useContext } from "react";
+import { useState, FormEvent } from "react";
 import axios from "axios";
-import { AuthContext } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { IconicBtn } from "./IconicBtn";
 
@@ -12,32 +12,40 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const context = useContext(AuthContext);
+  const { dispatch } = useAuth();
   const navigate = useNavigate();
 
-  if (!context) {
-    throw new Error("");
-  }
-
-  const { dispatch } = context;
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3000/api/auth/register", {
-        email,
-        password,
-      });
-      dispatch({ type: "LOGIN", payload: { email } });
-      onSuccess();
-      navigate("/");
-      setMessage("Registration successful!");
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/register",
+        {
+          email,
+          password,
+        }
+      );
+      if (response.data.stripeId) {
+        localStorage.setItem(
+          "stripeCustomerId",
+          response.data.stripeId
+        );
+        dispatch({
+          type: "LOGIN",
+          payload: { email, stripeId: response.data.stripeId },
+        });
+        onSuccess();
+        navigate("/");
+        setMessage("Registration successful!");
+      }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setMessage(
           error.response?.data.error || "An unexpected error occurred"
         );
       } else {
-        setMessage("An unexpected error occurred");
+        console.error("Stripe ID not found in the response");
+        setMessage("Registration failed: No Stripe ID provided.");
       }
     }
   };

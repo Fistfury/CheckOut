@@ -1,35 +1,39 @@
-import { useContext, useState } from "react";
+import {  useState } from "react";
 import { Link } from "react-router-dom";
-import { FaShoppingCart } from "react-icons/fa";
 import { Modal } from "../components/Modal";
 import { LoginForm } from "../components/LoginForm";
 import { RegisterForm } from "../components/RegisterForm";
-import { AuthContext } from "../context/AuthContext";
+import {  useAuth } from "../context/AuthContext";
+import { useCart } from "../context/CartContext";
+import { BsCart2 } from "react-icons/bs";
+import { CheckoutButton } from "../components/CheckOutBtn";
 
 export const Navigation = () => {
-  const { state, dispatch } = useContext(AuthContext);
+  const { state, dispatch } = useAuth();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const { cart } = useCart();
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
+    
   };
 
-  const cartCount = 3;
   return (
     <nav className="bg-beard-brown text-beard-cream p-2 flex justify-end items-center text-sm">
       {state.isAuthenticated ? (
         <div className="flex items-center space-x-2">
-          <div className="relative inline-block">
+          <CheckoutButton />
+          {/* <div className="relative inline-block">
             <Link to="/cart">
-              <FaShoppingCart className="text-2xl" />
-              {cartCount > 0 && (
+              <BsCart2 className="text-2xl" />
+              {
                 <span className="absolute top-3 -right-1 transform -translate-x-1/2 -translate-y-1/2 bg-beard-orange text-beard-cream text-xs font-semibold rounded-full px-1">
-                  {cartCount}
+                  {cart.length}
                 </span>
-              )}
+              }
             </Link>
-          </div>
+          </div> */}
           <button onClick={handleLogout}>Logout</button>
         </div>
       ) : (

@@ -18,7 +18,13 @@ const register = async (req, res) => {
     }
 
     const haschedPassword = await bcrypt.hash(password, 12);
-    const stripeCustomer = await stripe.customers.create({ email });
+
+    const stripeCustomer = await stripe.customers.create({
+      email,
+      description: `Customer for ${email}`,
+    });
+
+    console.log("Stripe customer created:", stripeCustomer);
 
     const newUser = {
       email,
@@ -28,10 +34,17 @@ const register = async (req, res) => {
     users.push(newUser);
     await fs.writeFile("./data/users.json", JSON.stringify(users, null, 2));
 
-    res.status(201).json("User registered");
+    console.log("New users added:", newUser);
+
+    res.status(201).json({
+      message: "User registered successfully.",
+      stripeId: stripeCustomer.id,
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error("Registration error:", error);
+    res
+      .status(500)
+      .json({ error: "Error registering user.", details: error.message });
   }
 };
 
@@ -40,10 +53,18 @@ const login = async (req, res) => {
   const users = await fetchUsers();
   const user = users.find((u) => u.email === email);
 
-  if (!user || !(await bcrypt.compare(password, user.password))) {
-    return res.status(401).send("Wrong password or no user");
+  if (!user) {
+    return res.status(401).json({ error: "User does not exist." });
   }
-  res.send("Logged in successfully");
-};
 
+  const passwordIsValid = await bcrypt.compare(password, user.password);
+  if (!passwordIsValid) {
+    return res.status(401).json({ error: "Wrong password." });
+  }
+
+  res.json({
+    message: "Logged in successfully",
+    stripeId: user.stripeId,
+  });
+};
 module.exports = { register, login };

@@ -1,8 +1,8 @@
-import { useState, FormEvent, useContext } from "react";
+import { useState, FormEvent } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { IconicBtn } from "./IconicBtn";
-import { AuthContext } from "../context/AuthContext"
+import { useAuth } from "../context/AuthContext";
 
 interface LoginFormProps {
   onSuccess: () => void;
@@ -12,28 +12,40 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const context = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const { dispatch } = context;
+  const { dispatch } = useAuth();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3000/api/auth/login", {
-        email,
-        password,
-      });
-      dispatch({ type: "LOGIN", payload: { email } });
-      onSuccess();
-      navigate("/");
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/login",
+        {
+          email,
+          password,
+        }
+      );
+      if (response.data.stripeId) {
+        localStorage.setItem(
+          "stripeCustomerId",
+          response.data.stripeId
+        );
+        dispatch({
+          type: "LOGIN",
+          payload: { email, stripeId: response.data.stripeId },
+        });
+        onSuccess();
+        navigate("/");
+      }
+      else {
+        throw new Error('Stripe Customer ID not found');
+      }
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setMessage(error.response?.data.error || "Wrong password or email");
-      } else {
+    
         setMessage("Wrong password or email");
       }
-    }
+    
   };
 
   return (
