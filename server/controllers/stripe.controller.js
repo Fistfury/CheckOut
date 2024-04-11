@@ -1,4 +1,5 @@
 const stripe = require("../utils/initStripe");
+const fs = require("fs").promises;
 
 const getProducts = async (req, res) => {
   try {
@@ -16,6 +17,12 @@ const getProducts = async (req, res) => {
 
 const createStripeCheckout = async (req, res) => {
   const { items, customerId } = req.body;
+  const couponId = 'hv1zJ7B0'; 
+
+  if (!customerId) {
+    return res.status(400).json({ error: "No customer ID provided" });
+}
+
 
   try {
     const lineItems = items.map(item =>({
@@ -29,48 +36,72 @@ const createStripeCheckout = async (req, res) => {
       },
       quantity: item.quantity,
     }));
-
+    console.log("Attempting to create Stripe session with:", lineItems, customerId);
+    console.log("Received items:", JSON.stringify(items, null, 2));
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `http://localhost:3000/canceled`,
+      success_url: `http://localhost:5173/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `http://localhost:5173/checkout-canceled`,
       customer: customerId,
+      discounts: [{coupon: couponId}],
     });
 
-    res.json({ url: session.url });
+    res.json({ url: session.url, sessionId: session.id });
   } catch (error) {
     console.error("Error creating checkout session:", error);
     res.status(500).json("Error in creating checkout session");
   }
 };
 
-const addStripeOrder = async (sessionId) => {
-  const session = await stripe.checkout.sessions.retrieve(sessionId, {
-    expand: ["line_items"],
-  });
+const verifySession = async (req, res) => {
 
-  if (session.payment_status === 'paid') {
-    const newOrder = {
-      orderId: session.id,
-      customerId: session.customer,
-      items: session.line_items.data.map(item => ({
-          name: item.name,
-          quantity: item.quantity,
-          unit_price: item.amount_total / 100,
-      })),
-      total: session.amount_total / 100,
-      date: new Date().toISOString(),
+  const { sessionId } = req.body;
+  try {
+
+  
+  const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+  if (session.payment_status === "paid") {
+      const lineItems = await stripe.checkout.sessions.listLineItems(sessionId);
+
+      const products = lineItems.data.map(item => ({
+        name: item.description,
+        quantity: item.quantity,
+        unit_price: item.price.unit_amount /100,
+      }));
+
+      const order = {
+        orderNumber: Math.floor(Math.random() * 100000000),
+        date: new Date().toISOString(),
+        customerEmail: session.customer_details.email,
+        customerId: session.customer, // Make sure this matches the ID from Stripe
+        products: products.map(p => ({ // Structure the product to match the frontend expectation
+          product: {
+            name: p.name,
+            unit_amount: p.unit_price,
+          },
+          quantity: p.quantity
+        })),
+        total: session.amount_total / 100, 
+      }
+      const ordersData = await fs.readFile("./data/orders.json");
+      const orders = JSON.parse(ordersData);
+      orders.push(order);
+      await fs.writeFile("./data/orders.json", JSON.stringify(orders, null, 2));
+
+      res.status(200).json({ verified: true });
+    } else {
+      res.status(400).json({ verified: false, message: "Payment not successful" });
     }
-    const orders = JSON.parse(await fs.readFile("./data/orders.json"));
-        orders.push(newOrder);
-        await fs.writeFile("./data/orders.json", JSON.stringify(orders, null, 4));
+  } catch (error) {
+    console.error("Error verifying payment:", error);
+    res.status(500).send("Error during payment verification.");
   }
-};
-
+}
 module.exports = {
   getProducts,
   createStripeCheckout,
-  addStripeOrder
+  verifySession
 };

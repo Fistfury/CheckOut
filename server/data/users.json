@@ -53,5 +53,20 @@
     "email": "balleballe@msn.com",
     "password": "$2b$12$hDjEQ77lY4zHkN96DdMV5uks2DfUmoz.EzxTEVhRKRSWpweXDKlLK",
     "stripeId": "cus_PttbCWKSBGQoGk"
+  },
+  {
+    "email": "hejsantest@hotmail.com",
+    "password": "$2b$12$25NvOA/XK/bqy2UvfbpjZu7IJH6G6iox32iDTyB1bScXRt7aLY1pq",
+    "stripeId": "cus_PuFgXwO5DdfPAR"
+  },
+  {
+    "email": "Kajsa@hotmail.com",
+    "password": "$2b$12$k5StoVKJa0aJjQu1/CYiqOk0oK0/B7Jv32aCe9RYtUWoNkdciicPW",
+    "stripeId": "cus_PuIXT0UUWvLu1m"
+  },
+  {
+    "email": "Mimmie@hotmail.com",
+    "password": "$2b$12$KBuOqEIeWGhn1bFIE/BBGeAksoHVuXE/3NyJrkbAsbxmn1y0xdUa2",
+    "stripeId": "cus_PuKMExj3GIk3Ae"
   }
 ]

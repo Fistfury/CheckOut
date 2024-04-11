@@ -30,6 +30,7 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
           "stripeCustomerId",
           response.data.stripeId
         );
+        localStorage.setItem("userEmail", email);
         dispatch({
           type: "LOGIN",
           payload: { email, stripeId: response.data.stripeId },

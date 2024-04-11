@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Product, useCart } from "../context/CartContext";
+import { useCart } from "../context/CartContext";
 import axios from "axios";
+import { Product } from "../models/interface.model";
 
 export const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);

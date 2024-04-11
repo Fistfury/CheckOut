@@ -16,3 +16,24 @@ Content-Type: application/json
 }
 ###
 POST http://localhost:3000/api/stripe/checkout
+Content-Type: application/json
+
+{
+    "items": [
+        {
+            "price_data": {
+                "currency": "sek",
+                "product_data": {
+                    "name": "Sample Product",
+                    "images": ["http://example.com/image.png"]
+                },
+                "unit_amount": 1000
+            },
+            "quantity": 1
+        }
+    ],
+    "customerId": "cus_XXXXXXXXXXXX"
+}
+
+###
+POST http://localhost:3000/api/postnord/pickup-locations

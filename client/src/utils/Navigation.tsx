@@ -1,39 +1,39 @@
 import {  useState } from "react";
-import { Link } from "react-router-dom";
 import { Modal } from "../components/Modal";
 import { LoginForm } from "../components/LoginForm";
 import { RegisterForm } from "../components/RegisterForm";
 import {  useAuth } from "../context/AuthContext";
-import { useCart } from "../context/CartContext";
-import { BsCart2 } from "react-icons/bs";
 import { CheckoutButton } from "../components/CheckOutBtn";
+import { useNavigate } from "react-router-dom";
+import { FiUser } from "react-icons/fi";
 
 export const Navigation = () => {
   const { state, dispatch } = useAuth();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const { cart } = useCart();
+  
+const navigate = useNavigate();
+
 
   const handleLogout = () => {
+    localStorage.removeItem("stripeCustomerId");
+    localStorage.removeItem("userEmail");
     dispatch({ type: "LOGOUT" });
+    navigate("/");
     
+  };
+  const handleProfileClick = () => {
+    navigate("/profile");
   };
 
   return (
     <nav className="bg-beard-brown text-beard-cream p-2 flex justify-end items-center text-sm">
       {state.isAuthenticated ? (
         <div className="flex items-center space-x-2">
+          <button onClick={handleProfileClick}>
+            <FiUser className="text-xl" />
+          </button>
           <CheckoutButton />
-          {/* <div className="relative inline-block">
-            <Link to="/cart">
-              <BsCart2 className="text-2xl" />
-              {
-                <span className="absolute top-3 -right-1 transform -translate-x-1/2 -translate-y-1/2 bg-beard-orange text-beard-cream text-xs font-semibold rounded-full px-1">
-                  {cart.length}
-                </span>
-              }
-            </Link>
-          </div> */}
           <button onClick={handleLogout}>Logout</button>
         </div>
       ) : (

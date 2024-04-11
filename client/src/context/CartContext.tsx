@@ -6,63 +6,51 @@ import {
   useState,
 } from "react";
 import { useAuth } from "./AuthContext";
-
-export interface Product {
-  id: string;
-  name: string;
-  description: string;
-  images: string[];
-  default_price: {
-    id: string;
-    unit_amount: number;
-  };
-}
-
-interface CartItem {
-  product: Product;
-  quantity: number;
-}
+import { CartItem, Product } from "../models/interface.model";
 
 interface ICartContext {
   cart: CartItem[];
-  addToCart: (product: Product) => void;
+  addToCart: (products: Product) => void;
   clearCart: () => void;
 }
 
-const initialValues = {
-  cart: [],
-  addToCart: () => {},
-  clearCart: () => {}
-};
+const CartContext = createContext<ICartContext>({ cart: [], addToCart: () => {}, clearCart: () => {} });
 
-const CartContext = createContext<ICartContext>(initialValues);
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }: PropsWithChildren) => {
-    const {state: authState } = useAuth();
-  const [cart, setCart] = useState<CartItem[]>(() => {
-    const lsData = localStorage.getItem("cart");
-    return lsData ? JSON.parse(lsData) : [];
-  });
+  const { state: { isAuthenticated, user }} = useAuth();
+  const [cart, setCart] = useState<CartItem[]>([]);
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+    const loadCart = () => {
+      const storedCart = localStorage.getItem(`cart_${user?.stripeId}`);
+      if (storedCart) {
+        setCart(JSON.parse(storedCart));
+      }
+    };
+    if (isAuthenticated && user?.stripeId) {
+      loadCart();
+    }
+  }, [user, isAuthenticated]);
+
+  useEffect(() => {
+    if (isAuthenticated && user?.stripeId) {
+      localStorage.setItem(`cart_${user.stripeId}`, JSON.stringify(cart));
+    }
+  }, [cart, user, isAuthenticated]);
 
   const addToCart = (product: Product) => {
-    if (!authState.isAuthenticated) {
-        alert("Please log in to add items to the cart.")
-        return;
+    if (!isAuthenticated) {
+      alert("Please log in to add items to the cart.");
+      return;
     }
-    const clonedCart = [...cart];
-
-    const productAlreadyExists = clonedCart.find(
-      (item) => item.product.id === product.id
-    );
-
-    if (productAlreadyExists) {
-      productAlreadyExists.quantity++;
-      setCart(clonedCart);
+    const existingItemIndex = cart.findIndex(item => item.product.id === product.id);
+    if (existingItemIndex > -1) {
+      const updatedCart = cart.map((item, index) => 
+        index === existingItemIndex ? { ...item, quantity: item.quantity + 1 } : item
+      );
+      setCart(updatedCart);
     } else {
       setCart([...cart, { product, quantity: 1 }]);
     }
@@ -70,8 +58,10 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
   const clearCart = () => {
     setCart([]);
-    localStorage.removeItem("cart")
-  }
+    if (user?.stripeId) {
+      localStorage.removeItem(`cart_${user.stripeId}`);
+    }
+  };
 
   return (
     <CartContext.Provider value={{ cart, addToCart, clearCart }}>
@@ -79,3 +69,10 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     </CartContext.Provider>
   );
 };
+
+
+
+
+
+
+

@@ -5,6 +5,8 @@ import { Footer } from "./components/Footer";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import { Cart } from "./components/Cart";
+import { CheckoutSuccess } from "./components/CheckOutSuccess";
+import { Profile } from "./pages/Profile";
 
 const App = () => {
   return (
@@ -16,6 +18,8 @@ const App = () => {
             <main className="flex-grow">
               <Routes>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/checkout-success" element={<CheckoutSuccess/>} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="/cart" element={<Cart />} />
               </Routes>
             </main>

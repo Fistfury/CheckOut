@@ -27,25 +27,20 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
         }
       );
       if (response.data.stripeId) {
-        localStorage.setItem(
-          "stripeCustomerId",
-          response.data.stripeId
-        );
+        localStorage.setItem("stripeCustomerId", response.data.stripeId);
+        localStorage.setItem("userEmail", email);
         dispatch({
           type: "LOGIN",
           payload: { email, stripeId: response.data.stripeId },
         });
         onSuccess();
         navigate("/");
-      }
-      else {
-        throw new Error('Stripe Customer ID not found');
+      } else {
+        throw new Error("Stripe Customer ID not found");
       }
     } catch (error) {
-    
-        setMessage("Wrong password or email");
-      }
-    
+      setMessage("Wrong password or email");
+    }
   };
 
   return (

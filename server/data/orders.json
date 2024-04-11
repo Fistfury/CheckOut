@@ -1,1 +1,196 @@
-[]
+[
+  {
+    "orderNumber": 48499905,
+    "date": "2024-04-11T21:30:52.013Z",
+    "customerEmail": "scarabeo85@msn.com",
+    "customerId": "cus_Ptos00ws6HgoNB",
+    "products": [
+      {
+        "product": {
+          "name": "Heavy Tobacco Vanilla Beard Elixir",
+          "unit_amount": 229
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Black Facial Towel",
+          "unit_amount": 89
+        },
+        "quantity": 1
+      }
+    ],
+    "total": 318
+  },
+  {
+    "orderNumber": 41344917,
+    "date": "2024-04-11T21:35:46.708Z",
+    "customerEmail": "scarabeo85@msn.com",
+    "customerId": "cus_Ptos00ws6HgoNB",
+    "products": [
+      {
+        "product": {
+          "name": "Sandalwood Luxe Beard Cleanser",
+          "unit_amount": 329
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Artisanal Beard Styling Comb",
+          "unit_amount": 99
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Nocturne Aroma Candle",
+          "unit_amount": 299
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Heritage Beard Grooming Brush",
+          "unit_amount": 149
+        },
+        "quantity": 1
+      }
+    ],
+    "total": 876
+  },
+  {
+    "orderNumber": 91567526,
+    "date": "2024-04-11T21:43:56.727Z",
+    "customerEmail": "scarabeo85@msn.com",
+    "customerId": "cus_Ptos00ws6HgoNB",
+    "products": [
+      {
+        "product": {
+          "name": "Heritage Beard Grooming Brush",
+          "unit_amount": 149
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Signature Blend Beard Balm",
+          "unit_amount": 49
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Classic Hold Beard Wax",
+          "unit_amount": 129
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Sandalwood Luxe Beard Cleanser",
+          "unit_amount": 329
+        },
+        "quantity": 1
+      }
+    ],
+    "total": 656
+  },
+  {
+    "orderNumber": 56034742,
+    "date": "2024-04-11T22:01:51.357Z",
+    "customerEmail": "Kajsa@hotmail.com",
+    "customerId": "cus_PuIXT0UUWvLu1m",
+    "products": [
+      {
+        "product": {
+          "name": "Heavy Tobacco Vanilla Beard Elixir",
+          "unit_amount": 229
+        },
+        "quantity": 2
+      },
+      {
+        "product": {
+          "name": "Black Facial Towel",
+          "unit_amount": 89
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Silk Essence Beard Conditioner",
+          "unit_amount": 249
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Signature Blend Beard Balm",
+          "unit_amount": 49
+        },
+        "quantity": 1
+      }
+    ],
+    "total": 845
+  },
+  {
+    "orderNumber": 71837707,
+    "date": "2024-04-11T22:03:49.685Z",
+    "customerEmail": "Mimmie@hotmail.com",
+    "customerId": "cus_PuKMExj3GIk3Ae",
+    "products": [
+      {
+        "product": {
+          "name": "Artisanal Beard Styling Comb",
+          "unit_amount": 99
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Nocturne Aroma Candle",
+          "unit_amount": 299
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Revitalizing Beard Tonic",
+          "unit_amount": 199
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Heritage Beard Grooming Brush",
+          "unit_amount": 149
+        },
+        "quantity": 1
+      }
+    ],
+    "total": 746
+  },
+  {
+    "orderNumber": 68799428,
+    "date": "2024-04-11T22:22:30.914Z",
+    "customerEmail": "Mimmie@hotmail.com",
+    "customerId": "cus_PuKMExj3GIk3Ae",
+    "products": [
+      {
+        "product": {
+          "name": "Silk Essence Beard Conditioner",
+          "unit_amount": 249
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Sandalwood Luxe Beard Cleanser",
+          "unit_amount": 329
+        },
+        "quantity": 1
+      }
+    ],
+    "total": 520.2
+  }
+]
