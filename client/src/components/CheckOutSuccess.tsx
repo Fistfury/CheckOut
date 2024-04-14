@@ -27,6 +27,8 @@ export const CheckoutSuccess = () => {
 
       if (response.data.verified) {
         console.log("Payment verification successful");
+        const newStripeId = localStorage.getItem('stripeId');
+        console.log("Stored Stripe ID:", newStripeId);
         clearCart();
         dispatch({ type: "SET_VERIFIED", verified: true });
       } else {

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { FiUser } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
 import { AiOutlineDelete } from "react-icons/ai";
+import axios from "axios";
 
 export const Navigation = () => {
   const { state, dispatch } = useAuth();
@@ -18,9 +19,15 @@ export const Navigation = () => {
 const navigate = useNavigate();
 
 
-  const handleLogout = () => {
-    localStorage.removeItem("stripeCustomerId");
-    localStorage.removeItem("userEmail");
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post("http://localhost:3000/api/auth/logout");
+      if (response.status !== 200) {
+        throw new Error('Logout failed');
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
     dispatch({ type: "LOGOUT" });
     navigate("/");
     

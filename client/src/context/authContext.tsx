@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   createContext,
   useReducer,
@@ -57,14 +58,23 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   useEffect(() => {
-    const storedCustomerId = localStorage.getItem("stripeCustomerId");
-    const storedEmail = localStorage.getItem("userEmail");
-
-    if (storedCustomerId && storedEmail) {
-      const user = { email: storedEmail, stripeId: storedCustomerId };
-      dispatch({ type: "LOGIN", payload: user });
-    }
-  }, []);
+    const validateSession = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/validate/validate-session");
+        if (response.data.isAuthenticated) {
+          const storedStripeId = localStorage.getItem('stripeId');
+          dispatch({ type: 'LOGIN', payload: {...response.data.user, stripeId: storedStripeId }});
+        } else {
+          dispatch({ type: 'LOGOUT' });
+        }
+      } catch (error) {
+        console.error('Session validation failed:', error);
+        dispatch({ type: 'LOGOUT' });
+      }
+    };
+  
+    validateSession();
+  }, [dispatch]);
 
   return (
     <AuthContext.Provider value={{ state, dispatch }}>

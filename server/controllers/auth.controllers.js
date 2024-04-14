@@ -2,22 +2,20 @@ const fetchUsers = require("../utils/fetchUsers");
 const fs = require("fs").promises;
 const bcrypt = require("bcrypt");
 const stripe = require("../utils/initStripe");
+const { v4: uuidv4 } = require('uuid');
+
+const saveUsers = async (users) => {
+  await fs.writeFile("./data/users.json", JSON.stringify(users, null, 2));
+};
 
 const register = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      return res.status(400).json({ error: "Email and password are required" });
-    }
-
-    const users = await fetchUsers();
-    const userAlreadyExists = users.find((u) => u.email === email);
-
-    if (userAlreadyExists) {
-      return res.status(400).json("User already exists");
-    }
-
-    const haschedPassword = await bcrypt.hash(password, 12);
+  const { email, password } = req.body;
+  const users = await fetchUsers();
+  const userAlreadyExists = users.find(u => u.email === email);
+  if (userAlreadyExists) {
+    return res.status(409).send('User already exists');
+  }
+  const hashedPassword = await bcrypt.hash(password, 12);
 
     const stripeCustomer = await stripe.customers.create({
       email,
@@ -27,26 +25,26 @@ const register = async (req, res) => {
     console.log("Stripe customer created:", stripeCustomer);
 
     const newUser = {
+      id: uuidv4(),
       email,
-      password: haschedPassword,
+      password: hashedPassword,
       stripeId: stripeCustomer.id,
+     
     };
     users.push(newUser);
-    await fs.writeFile("./data/users.json", JSON.stringify(users, null, 2));
-
+    await saveUsers(users);
+    req.session.userId = newUser.id; 
+   
+   
     console.log("New users added:", newUser);
 
     res.status(201).json({
       message: "User registered successfully.",
       stripeId: stripeCustomer.id,
+      userId: newUser.id
     });
-  } catch (error) {
-    console.error("Registration error:", error);
-    res
-      .status(500)
-      .json({ error: "Error registering user.", details: error.message });
   }
-};
+  
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -61,10 +59,15 @@ const login = async (req, res) => {
   if (!passwordIsValid) {
     return res.status(401).json({ error: "Wrong password." });
   }
-
+  req.session.userId = user.id;
   res.json({
     message: "Logged in successfully",
     stripeId: user.stripeId,
+    userId: user.id
   });
 };
-module.exports = { register, login };
+const logout = (req, res) => {
+  req.session = null;
+  res.json({ message: "Logged out successfully" });
+};
+module.exports = { register, login, logout };

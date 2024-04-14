@@ -3,6 +3,7 @@ import { useCart } from "../context/CartContext";
 import { BsCart2 } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { PostNordModal } from "./PostNordModal";
+import { useNavigate } from "react-router-dom";
 
 interface ServicePoint {
   servicePointId: string;
@@ -15,6 +16,7 @@ export const CheckoutButton = () => {
   const [showPostNordModal, setShowPostNordModal] = useState(false);
   const [selectedServicePoint, setSelectedServicePoint] =
     useState<ServicePoint | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
       if (selectedServicePoint) {
@@ -31,6 +33,13 @@ export const CheckoutButton = () => {
       alert("Please select a pickup location first.");
       return;
     }
+    const { data } = await axios.get("http://localhost:3000/api/users/customer-info");
+    const customerId = data.stripeId;
+    if (!customerId) {
+      alert("No customer ID found. Please log in again.");
+      return;
+    }
+
     try {
       const items = cart.map((item) => ({
         price: item.product.default_price.id,
@@ -39,11 +48,7 @@ export const CheckoutButton = () => {
         unit_amount: item.product.default_price.unit_amount,
         quantity: item.quantity,
       }));
-      const customerId = localStorage.getItem("stripeCustomerId");
-      if (!customerId) {
-        alert("No customer ID found. Please log in again.");
-        return;
-      }
+   
       console.log(customerId);
 
       const response = await axios.post(
@@ -56,6 +61,7 @@ export const CheckoutButton = () => {
       );
         console.log(selectedServicePoint.name)
       localStorage.setItem("stripeSessionId", response.data.sessionId);
+      // navigate('/checkout-success');
       window.location.href = response.data.url;
     } catch (error) {
       console.error("Checkout error:", error);

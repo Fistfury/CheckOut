@@ -24,11 +24,13 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
         {
           email,
           password,
+        
         }
       );
-      if (response.data.stripeId) {
-        localStorage.setItem("stripeCustomerId", response.data.stripeId);
-        localStorage.setItem("userEmail", email);
+      console.log(response.data)
+      if (response.status === 200) {
+        localStorage.setItem('stripeId', response.data.stripeId);
+        console.log({ email, stripeId: response.data.stripeId });
         dispatch({
           type: "LOGIN",
           payload: { email, stripeId: response.data.stripeId },
@@ -36,7 +38,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
         onSuccess();
         navigate("/");
       } else {
-        throw new Error("Stripe Customer ID not found");
+        throw new Error("Failed to log in");
       }
     } catch (error) {
       setMessage("Wrong password or email");

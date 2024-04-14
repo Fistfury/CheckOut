@@ -10,25 +10,29 @@ export const UserProfile = () => {
   } = useAuth();
   const [loading, setLoading] = useState(true);
 
+  console.log("Authenticated:", isAuthenticated);
+  console.log("User:", user);
+  console.log("Stripe ID:", user?.stripeId);
+
   useEffect(() => {
     const fetchOrders = async () => {
-      setLoading(true);
-      const customerId = user?.stripeId;
-      if (isAuthenticated && customerId) {
-        axios
-          .get(`http://localhost:3000/api/orders/${customerId}`)
-          .then((response) => {
-            setOrders(response.data);
-          })
-          .catch((error) => {
-            console.error("Error fetching orders:", error);
-          });
+      console.log("Fetching orders for Stripe ID:", user?.stripeId);
+      if (isAuthenticated && user?.stripeId) {
+        try {
+          setLoading(true);
+          const response = await axios.get(`http://localhost:3000/api/orders/${user.stripeId}`);
+          console.log("Orders fetched:", response.data); 
+          setOrders(response.data);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching orders:", error);
+          setLoading(false);
+        }
       }
-      setLoading(false);
     };
 
     fetchOrders();
-  }, [isAuthenticated, user]);
+}, [isAuthenticated, user?.stripeId]);
   if (loading) {
     return (
       <div className="flex justify-center items-center text-beard-dark h-screen">

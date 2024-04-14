@@ -25,12 +25,7 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
           password,
         }
       );
-      if (response.data.stripeId) {
-        localStorage.setItem(
-          "stripeCustomerId",
-          response.data.stripeId
-        );
-        localStorage.setItem("userEmail", email);
+      if (response.status === 201) {
         dispatch({
           type: "LOGIN",
           payload: { email, stripeId: response.data.stripeId },
@@ -38,6 +33,8 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
         onSuccess();
         navigate("/");
         setMessage("Registration successful!");
+      } else {
+        throw new Error("Registration failed");
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
