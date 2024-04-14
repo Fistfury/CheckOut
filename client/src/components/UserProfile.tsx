@@ -18,11 +18,10 @@ export const UserProfile = () => {
         axios
           .get(`http://localhost:3000/api/orders/${customerId}`)
           .then((response) => {
-            setOrders(response.data); 
+            setOrders(response.data);
           })
           .catch((error) => {
             console.error("Error fetching orders:", error);
-           
           });
       }
       setLoading(false);
@@ -40,36 +39,52 @@ export const UserProfile = () => {
 
   return (
     <div className="flex flex-col items-center justify-center p-4">
-    <h1 className="text-2xl font-serif font-bold text-beard-dark mb-5">
-      Your Orders
-    </h1>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full max-w-6xl">
-      {orders.map((order, index) => (
-        <div
-          key={index}
-          className="bg-beard-cream rounded-lg shadow-lg overflow-hidden"
-        >
-          <div className="p-4 font-serif text-beard-dark">
-            <h3 className="text-lg font-bold mb-2">
-              Order Number: {order.orderNumber}
-            </h3>
-            <p className="text-sm mb-1">
-              <span className="font-bold">Customer:</span> {order.customerEmail}
-            </p>
-            <p className="text-sm mb-1">Date: {new Date(order.date).toLocaleDateString()}</p>
-            <p className="text-sm mb-1">Total: {order.total.toFixed(2)} SEK</p>
-            <ul className="mt-4">
-              {order.products.map((product, idx) => (
-                <li key={idx} className="flex justify-between py-1 border-b border-beard-grey">
-                  <span className="font-semibold">{product.product.name}</span>
-                  <span>x{product.quantity}</span>
-                </li>
-              ))}
-            </ul>
+      <h1 className="text-2xl font-serif font-bold text-beard-dark mb-5">
+        Your Orders
+      </h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full max-w-6xl">
+        {orders.map((order, index) => (
+          <div
+            key={index}
+            className="bg-beard-cream rounded-lg shadow-lg overflow-hidden"
+          >
+            <div className="p-4 font-serif text-beard-dark">
+              <h3 className="text-lg font-bold mb-2">
+                Order Number: {order.orderNumber}
+              </h3>
+              <p className="text-sm mb-1">
+                <span className="font-bold">Customer:</span>{" "}
+                {order.customerEmail}
+              </p>
+              <p className="text-sm mb-1">
+                <span className="font-bold">Date:</span>{" "}
+                {new Date(order.date).toLocaleDateString()}
+              </p>
+              <p className="text-sm mb-1">
+                <span className="font-bold">Pickup location:</span>{" "}
+                {order.pickupLocation}
+              </p>
+              <p className="text-sm mb-1">
+                <span className="font-bold">Total:</span>{" "}
+                {order.total.toFixed(2)} SEK
+              </p>
+              <ul className="mt-4">
+                {order.products.map((product, idx) => (
+                  <li
+                    key={idx}
+                    className="flex justify-between py-1 border-b border-beard-grey"
+                  >
+                    <span className="font-semibold">
+                      {product.product.name}
+                    </span>
+                    <span>x{product.quantity}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
-  </div>
   );
 };

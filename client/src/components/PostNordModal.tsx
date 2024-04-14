@@ -1,5 +1,6 @@
-import axios from 'axios';
-import { useState } from 'react';
+import axios from "axios";
+import { ChangeEvent, useState } from "react";
+import Select from "react-select";
 
 interface ServicePoint {
   servicePointId: string;
@@ -18,62 +19,124 @@ export const PostNordModal = ({
   onClose,
   onPickupLocationSelected,
 }: PostNordModalProps) => {
-  const [postalCode, setPostalCode] = useState<string>('');
+  const [postalCode, setPostalCode] = useState<string>("");
   const [pickupLocations, setPickupLocations] = useState<ServicePoint[]>([]);
+  const [selectedLocation, setSelectedLocation] = useState<ServicePoint | null>(
+    null
+  );
+
+
+  const handleAddressChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPostalCode(e.target.value);
+  };
 
   const handleFindPickupLocations = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/postnord/pickup-locations`, {
-        params: { postalCode }
-      });
-      setPickupLocations(response.data.servicePoints);
+      const response = await axios.get(
+        `http://localhost:3000/api/postnord/pickup-locations`,
+        { params: { postalCode } }
+      );
+      setPickupLocations(response.data );
     } catch (error) {
-      console.error('Error fetching pickup locations:', error);
+      console.error("Error fetching pickup locations:", error);
+      
+    }
+  };
+  const options = pickupLocations.map((location) => ({
+    value: location.servicePointId,
+    label: `${location.name} `,
+  }));
+
+  const handleChange = (option: { value: string; label: string } | null) => {
+    if (option) {
+      const location = pickupLocations.find(
+        (loc) => loc.servicePointId === option.value
+      );
+      if (location) {
+        setSelectedLocation(location);
+      }
+    } else {
+      setSelectedLocation(null);
     }
   };
 
-  const handlePickupLocationSelect = (location: ServicePoint) => {
-    onPickupLocationSelected(location);
-    onClose();
+  const handleSelect = () => {
+    if (selectedLocation) {
+      onPickupLocationSelected(selectedLocation);
+      onClose();
+    }
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center">
-      <div className="bg-white p-4 rounded-lg shadow-lg max-w-sm w-full">
-        <h2 className="font-bold text-lg mb-4">Select a Pickup Location</h2>
-        <input
-          type="text"
-          className="w-full p-2 border border-gray-300 rounded mb-4"
-          placeholder="Enter Postal Code"
-          value={postalCode}
-          onChange={(e) => setPostalCode(e.target.value)}
-        />
+    <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center">
+      <div className="bg-white p-6 rounded-lg shadow-lg m-4 relative max-w-md w-full">
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={handleFindPickupLocations}
-        >
-          Find Locations
-        </button>
-        <div className="mt-4">
-          {pickupLocations.map((location, idx) => (
-            <div
-              key={idx}
-              className="p-2 border-b border-gray-200 cursor-pointer"
-              onClick={() => handlePickupLocationSelect(location)}
-            >
-              <p>{location.name}</p>
-              <p className="text-sm text-gray-600">{location.visitingAddress}</p>
-            </div>
-          ))}
-        </div>
-        <button
-          className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
           onClick={onClose}
+          className="absolute top-0 right-0 p-4 text-2xl text-beard-dark hover:text-beard-orange"
         >
-          Close
+          &times;
         </button>
+        <div className="flex flex-col items-center">
+          <h2 className="text-2xl font-serif font-bold text-beard-dark mb-5">
+            Select a Pickup Location
+          </h2>
+          <input
+            className="w-full p-3 mb-4 border border-beard-grey rounded focus:outline-none focus:ring-2 focus:ring-beard-dark focus:border-transparent"
+            type="text"
+            name="postalCode"
+            value={postalCode}
+            onChange={handleAddressChange}
+            placeholder="Postal Code"
+          />
+          <button
+            onClick={handleFindPickupLocations}
+            className="mb-4 px-6 py-2 bg-beard-orange text-beard-cream font-semibold rounded hover:bg-beard-light-orange transition duration-300"
+          >
+            Find Pickup Locations
+          </button>
+          <Select
+            options={options}
+            onChange={handleChange}
+            className="w-full mb-4"
+            placeholder="Select a pickup location"
+            styles={{
+              control: (provided) => ({
+                ...provided,
+                border: "1px solid #545449", 
+                boxShadow: "none",
+                "&:hover": {
+                  border: "1px solid #603321", 
+                },
+                "&:focus": {
+                  borderColor: "#603321", 
+                },
+              }),
+              option: (provided, state) => ({
+                ...provided,
+                backgroundColor: state.isSelected ? "#b76743" : "#fff", 
+                "&:hover": {
+                  backgroundColor: "#b56742", 
+                },
+              }),
+            }}
+          />
+          <div className="flex space-x-4 mt-4">
+            <button
+              onClick={handleSelect}
+              className="flex-1 px-6 py-2 bg-beard-dark text-beard-cream font-semibold rounded hover:bg-beard-deep-brown transition duration-300"
+            >
+              Select Location
+            </button>
+            <button
+              onClick={onClose}
+              className="flex-1 px-6 py-2 bg-beard-grey text-beard-cream font-semibold rounded hover:bg-beard-darkest transition duration-300"
+            >
+              Close
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

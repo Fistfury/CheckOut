@@ -17,6 +17,7 @@ export interface Product {
   export interface Order {
     orderNumber: number;
     customerEmail: string,
+    pickupLocation: string,
     date: string;
     total: number;
     products: CartItem[];

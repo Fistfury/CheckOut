@@ -6,9 +6,12 @@ import {  useAuth } from "../context/AuthContext";
 import { CheckoutButton } from "../components/CheckOutBtn";
 import { useNavigate } from "react-router-dom";
 import { FiUser } from "react-icons/fi";
+import { useCart } from "../context/CartContext";
+import { AiOutlineDelete } from "react-icons/ai";
 
 export const Navigation = () => {
   const { state, dispatch } = useAuth();
+  const { cart, clearCart } = useCart();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   
@@ -25,16 +28,24 @@ const navigate = useNavigate();
   const handleProfileClick = () => {
     navigate("/profile");
   };
+  const handleClearCart = () => {
+    clearCart();
+  }
 
   return (
     <nav className="bg-beard-brown text-beard-cream p-2 flex justify-end items-center text-sm">
       {state.isAuthenticated ? (
         <div className="flex items-center space-x-2">
           <button onClick={handleProfileClick}>
-            <FiUser className="text-xl" />
+            <FiUser className="text-xl hover:text-beard-orange" />
           </button>
           <CheckoutButton />
-          <button onClick={handleLogout}>Logout</button>
+          {cart.length > 0 && ( 
+            <button onClick={handleClearCart} title="Clear cart" className="text-beard-cream hover:text-beard-orange">
+              <AiOutlineDelete className="text-xl" />
+            </button>
+          )}
+          <button className="hover:text-beard-orange" onClick={handleLogout}>Logout</button>
         </div>
       ) : (
         <>

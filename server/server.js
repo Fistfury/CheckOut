@@ -6,7 +6,6 @@ const userRoutes = require("./routes/usersRoutes");
 const stripeRoutes = require("./routes/stripeRoutes");
 const ordersRoutes = require("./routes/ordersRoutes");
 const postnordRoutes = require("./routes/postnordRoutes")
-const cookieSession = require("cookie-session");
 
 const app = express();
 app.use(
@@ -16,12 +15,6 @@ app.use(
   })
 );
 app.use(express.json());
-app.use(
-  cookieSession({
-    secret: "s3cr3tk3y",
-    maxAge: 1000 * 60 * 60,
-  })
-);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);

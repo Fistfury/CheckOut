@@ -4,61 +4,13 @@
     "password": "$2b$12$pYpJMJBdxbAZ.4djxvUTJeptC1oy8zebz9lNYll9QIfXYyAEpfemy",
     "stripeId": "cus_Pt43CR8Mpd9FTZ"
   },
-  {
-    "email": "jonnie@gmail.com",
-    "password": "$2b$12$OAtvMprYW8py2i1l6TejxeCHVP1fEsdQVlnxBcvk6Uj7QnA109MCq",
-    "stripeId": "cus_Pt44gR2CHVA57N"
-  },
-  {
-    "email": "jonnie@gmail.se",
-    "password": "$2b$12$AUbGUF9rW9wQxyl4iB.0DOogG.fdiVXoFfM2tc24YcQmB53Ise3AK",
-    "stripeId": "cus_Pt6bxB8b0xR07l"
-  },
-  {
-    "email": "test@gmail.com",
-    "password": "$2b$12$1ybstjV8sUPkyGRPsgvtWOFJ845sFDJQdCqV3nLHrN1RLEi6XNVhm",
-    "stripeId": "cus_PtVvSfRWuPqsf9"
-  },
+
   {
     "email": "scarabeo85@msn.com",
     "password": "$2b$12$oB5QUxnREfymM9xRxQz6peCwlImwvGSTeF2ttgoiejlF5GjzSvDOu",
     "stripeId": "cus_Ptos00ws6HgoNB"
   },
-  {
-    "email": "blabla@msn.com",
-    "password": "$2b$12$JTfNMUMAnVlvMBDLMg5Jx.UB9oJzcreYw9vBw2eIiVw5HkbWTqgiG",
-    "stripeId": "cus_Ptoz5kB4a2H5gy"
-  },
-  {
-    "email": "blablabla@msn.com",
-    "password": "$2b$12$C/qNI4JSZZag1UBeYkJIh.TAA/3lei3YyY8Koia/wqSWvkUKA77N.",
-    "stripeId": "cus_Ptp1bYATrfJHiB"
-  },
-  {
-    "email": "yalla@gmail.com",
-    "password": "$2b$12$/ak/OyrLPMcFMtsqCWjWzeRsWdUPzCh/dQsoj8lZJ4zyzycwhllaa",
-    "stripeId": "cus_PttLdk7ocKrZqQ"
-  },
-  {
-    "email": "jallajalla@hotmail.com",
-    "password": "$2b$12$5FcmA9ERe4/6S7APNnnG7OeEX/rZ2Hf/p.21A0XRZGb31eh8vyRw.",
-    "stripeId": "cus_PttLzi7Z8SDlfA"
-  },
-  {
-    "email": "yallayalla@msn.com",
-    "password": "$2b$12$qrsxVyuR0htPLAaTj7g7jOK829Jlgv7jtAGaxZzgUJE1x/Vr0FtZa",
-    "stripeId": "cus_PttZYjs8IHwJGe"
-  },
-  {
-    "email": "balleballe@msn.com",
-    "password": "$2b$12$hDjEQ77lY4zHkN96DdMV5uks2DfUmoz.EzxTEVhRKRSWpweXDKlLK",
-    "stripeId": "cus_PttbCWKSBGQoGk"
-  },
-  {
-    "email": "hejsantest@hotmail.com",
-    "password": "$2b$12$25NvOA/XK/bqy2UvfbpjZu7IJH6G6iox32iDTyB1bScXRt7aLY1pq",
-    "stripeId": "cus_PuFgXwO5DdfPAR"
-  },
+
   {
     "email": "Kajsa@hotmail.com",
     "password": "$2b$12$k5StoVKJa0aJjQu1/CYiqOk0oK0/B7Jv32aCe9RYtUWoNkdciicPW",

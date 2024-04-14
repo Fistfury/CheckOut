@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useCart } from "../context/CartContext";
 import { BsCart2 } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PostNordModal } from "./PostNordModal";
 
 interface ServicePoint {
   servicePointId: string;
   name: string;
-  visitingAddress: string;
+  
 }
 
 export const CheckoutButton = () => {
@@ -15,6 +15,12 @@ export const CheckoutButton = () => {
   const [showPostNordModal, setShowPostNordModal] = useState(false);
   const [selectedServicePoint, setSelectedServicePoint] =
     useState<ServicePoint | null>(null);
+
+    useEffect(() => {
+      if (selectedServicePoint) {
+        proceedToCheckout();
+      }
+    }, [selectedServicePoint]);
 
   const proceedToCheckout = async () => {
     if (cart.length === 0) {
@@ -45,10 +51,10 @@ export const CheckoutButton = () => {
         {
           items,
           customerId,
-          pickupLocation: selectedServicePoint.visitingAddress,
+          pickupLocation: selectedServicePoint.name,
         }
       );
-
+        console.log(selectedServicePoint.name)
       localStorage.setItem("stripeSessionId", response.data.sessionId);
       window.location.href = response.data.url;
     } catch (error) {
@@ -56,27 +62,28 @@ export const CheckoutButton = () => {
       alert("Failed to initiate checkout.");
     }
   };
-  const handlePickupLocationSelected = (location: ServicePoint) => {
-    setSelectedServicePoint(location); 
-    setShowPostNordModal(false); 
-    proceedToCheckout(); 
+  const handlePickupLocationSelected = (ServicePoint: ServicePoint) => {
+    setSelectedServicePoint(ServicePoint);
+    setShowPostNordModal(false);
+    
   };
 
   const handleDirectCheckout = () => {
     if (cart.length === 0) {
-        alert("Your cart is empty.");
-        return;
+      alert("Your cart is empty.");
+      return;
     }
-    setShowPostNordModal(true);  
-};
+    setShowPostNordModal(true);
+  };
+  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <>
       <button onClick={handleDirectCheckout} className="relative inline-block">
-        <BsCart2 className="text-2xl" />
-        {cart.length > 0 && (
+        <BsCart2 className="text-2xl hover:text-beard-orange" />
+        {totalItems > 0 && (
           <span className="absolute top-3 -right-1 transform -translate-x-1/2 -translate-y-1/2 bg-beard-orange text-beard-cream text-xs font-semibold rounded-full px-1">
-            {cart.length}
+            {totalItems}
           </span>
         )}
       </button>

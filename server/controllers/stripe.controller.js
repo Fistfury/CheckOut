@@ -16,8 +16,7 @@ const getProducts = async (req, res) => {
 };
 
 const createStripeCheckout = async (req, res) => {
-  const { items, customerId } = req.body;
-  const couponId = 'hv1zJ7B0'; 
+  const { items, customerId, pickupLocation } = req.body;
 
   if (!customerId) {
     return res.status(400).json({ error: "No customer ID provided" });
@@ -36,8 +35,6 @@ const createStripeCheckout = async (req, res) => {
       },
       quantity: item.quantity,
     }));
-    console.log("Attempting to create Stripe session with:", lineItems, customerId);
-    console.log("Received items:", JSON.stringify(items, null, 2));
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: lineItems,
@@ -45,7 +42,8 @@ const createStripeCheckout = async (req, res) => {
       success_url: `http://localhost:5173/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `http://localhost:5173/checkout-canceled`,
       customer: customerId,
-      discounts: [{coupon: couponId}],
+      metadata: {pickupLocation},
+      allow_promotion_codes: true,
     });
 
     res.json({ url: session.url, sessionId: session.id });
@@ -60,8 +58,7 @@ const verifySession = async (req, res) => {
   const { sessionId } = req.body;
   try {
 
-  
-  const session = await stripe.checkout.sessions.retrieve(sessionId);
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
 
   if (session.payment_status === "paid") {
       const lineItems = await stripe.checkout.sessions.listLineItems(sessionId);
@@ -72,12 +69,15 @@ const verifySession = async (req, res) => {
         unit_price: item.price.unit_amount /100,
       }));
 
+      const pickupLocation = session.metadata.pickupLocation;
+
       const order = {
         orderNumber: Math.floor(Math.random() * 100000000),
         date: new Date().toISOString(),
         customerEmail: session.customer_details.email,
-        customerId: session.customer, // Make sure this matches the ID from Stripe
-        products: products.map(p => ({ // Structure the product to match the frontend expectation
+        customerId: session.customer,
+        pickupLocation: pickupLocation, 
+        products: products.map(p => ({ 
           product: {
             name: p.name,
             unit_amount: p.unit_price,

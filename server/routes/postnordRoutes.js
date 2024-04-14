@@ -3,6 +3,6 @@ const { getPickupLocations } = require("../controllers/postnord.controller");
 const router = express.Router();
 
 
-router.post("/pickup-locations", getPickupLocations)
+router.get("/pickup-locations", getPickupLocations)
 
 module.exports = router;

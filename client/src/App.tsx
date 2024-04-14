@@ -4,9 +4,9 @@ import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
-import { Cart } from "./components/Cart";
 import { CheckoutSuccess } from "./components/CheckOutSuccess";
 import { Profile } from "./pages/Profile";
+import { CheckoutCanceled } from "./components/CheckOutCanceled";
 
 const App = () => {
   return (
@@ -19,8 +19,8 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/checkout-success" element={<CheckoutSuccess/>} />
+                <Route path="/checkout-canceled" element={<CheckoutCanceled />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/cart" element={<Cart />} />
               </Routes>
             </main>
             <Footer />
