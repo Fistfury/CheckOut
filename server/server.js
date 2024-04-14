@@ -1,21 +1,34 @@
-const express = require("express")
-const cookieSession = require("cookie-session")
-const cors = require("cors")
+const express = require("express");
+require("dotenv").config();
+const cors = require("cors");
+const cookieSession = require('cookie-session');
+const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/usersRoutes");
+const stripeRoutes = require("./routes/stripeRoutes");
+const ordersRoutes = require("./routes/ordersRoutes");
+const postnordRoutes = require("./routes/postnordRoutes")
+const validateRoutes = require("./routes/validateRoutes")
 
-const app = express()
-
-app.use(cors({
+const app = express();
+app.use(
+  cors({
     origin: "http://localhost:5173",
-    credentials: true
-})
-  
-)
-app.use(express.json())
+    credentials: true,
+  })
+);
+app.use(express.json());
 app.use(cookieSession({
-    secret: "s3cr3tk3y",
-    maxAge: 1000* 60 * 60,
-})
-   
-)
+  name: 'session',
+  keys: [process.env.SESSION_KEY],
+  maxAge: 24 * 60 * 60 * 1000 // 24 timmar
+}));
 
-app.listen(3000, () => console.log("Server is up"))
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/stripe", stripeRoutes);
+app.use("/api/orders", ordersRoutes);
+app.use("/api/postnord", postnordRoutes);
+app.use("/api/validate", validateRoutes);
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`server is running on ${PORT}`));

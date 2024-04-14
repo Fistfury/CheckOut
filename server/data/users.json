@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "id": "bc2a92a1-469f-4feb-9835-329ef707cf3f",
+    "email": "yesSir@gmail.com",
+    "password": "$2b$12$pYpJMJBdxbAZ.4djxvUTJeptC1oy8zebz9lNYll9QIfXYyAEpfemy",
+    "stripeId": "cus_Pt43CR8Mpd9FTZ"
+  },
+  {
+    "id": "bc2a92a1-469f-4feb-9835-329ef507cf3f",
+    "email": "scarabeo85@msn.com",
+    "password": "$2b$12$oB5QUxnREfymM9xRxQz6peCwlImwvGSTeF2ttgoiejlF5GjzSvDOu",
+    "stripeId": "cus_Ptos00ws6HgoNB"
+  },
+  {
+    "id": "bc2a92a1-469f-4feb-9835-329ef307cf3f",
+    "email": "Kajsa@hotmail.com",
+    "password": "$2b$12$k5StoVKJa0aJjQu1/CYiqOk0oK0/B7Jv32aCe9RYtUWoNkdciicPW",
+    "stripeId": "cus_PuIXT0UUWvLu1m"
+  },
+  {
+    "id": "bc2a92a1-469f-4feb-9835-329ef807cf3f",
+    "email": "Mimmie@hotmail.com",
+    "password": "$2b$12$KBuOqEIeWGhn1bFIE/BBGeAksoHVuXE/3NyJrkbAsbxmn1y0xdUa2",
+    "stripeId": "cus_PuKMExj3GIk3Ae"
+  },
+  {
+    "id": "bc2a92a1-469f-4feb-9835-329ef107cf3f",
+    "email": "Jonnie@hotmail.com",
+    "password": "$2b$12$9bUAGxW4pJW9hz4IhdzuMeKNR4Y1YK60Pc.sWuN0D4oFMP.ey5VbG",
+    "stripeId": "cus_PvNgGHujJywqvZ"
+  },
+  {
+    "id": "bc2a92a1-469f-4feb-9835-329ef207cf3f",
+    "email": "Jonnie1@hotmail.com",
+    "password": "$2b$12$dXk5siTXHiY8o/PGXmtpsOH3KbQBFgVBmez54xNglevNHfM9alhy2",
+    "stripeId": "cus_PvOTxHFFbSMAkl"
+  }
+]
