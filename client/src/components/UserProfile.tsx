@@ -16,12 +16,12 @@ export const UserProfile = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      console.log("Fetching orders for Stripe ID:", user?.stripeId);
+     
       if (isAuthenticated && user?.stripeId) {
         try {
           setLoading(true);
           const response = await axios.get(`http://localhost:3000/api/orders/${user.stripeId}`);
-          console.log("Orders fetched:", response.data); 
+         
           setOrders(response.data);
           setLoading(false);
         } catch (error) {

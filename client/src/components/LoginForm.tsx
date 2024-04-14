@@ -27,10 +27,10 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
         
         }
       );
-      console.log(response.data)
+    
       if (response.status === 200) {
         localStorage.setItem('stripeId', response.data.stripeId);
-        console.log({ email, stripeId: response.data.stripeId });
+       
         dispatch({
           type: "LOGIN",
           payload: { email, stripeId: response.data.stripeId },

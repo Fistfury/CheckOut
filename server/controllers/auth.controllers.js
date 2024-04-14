@@ -22,7 +22,7 @@ const register = async (req, res) => {
       description: `Customer for ${email}`,
     });
 
-    console.log("Stripe customer created:", stripeCustomer);
+    
 
     const newUser = {
       id: uuidv4(),
@@ -36,7 +36,7 @@ const register = async (req, res) => {
     req.session.userId = newUser.id; 
    
    
-    console.log("New users added:", newUser);
+  
 
     res.status(201).json({
       message: "User registered successfully.",
