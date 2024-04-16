@@ -1,0 +1,5 @@
+- Node.js and npm installed
+- Clone this repository
+- Install dependencies with `npm install`
+- Start the backend server with `npm start`
+- Start the frontend server with `npm run dev`
