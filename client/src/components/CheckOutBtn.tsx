@@ -3,7 +3,7 @@ import { useCart } from "../context/CartContext";
 import { BsCart2 } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { PostNordModal } from "./PostNordModal";
-import { useNavigate } from "react-router-dom";
+
 
 interface ServicePoint {
   servicePointId: string;
@@ -16,7 +16,7 @@ export const CheckoutButton = () => {
   const [showPostNordModal, setShowPostNordModal] = useState(false);
   const [selectedServicePoint, setSelectedServicePoint] =
     useState<ServicePoint | null>(null);
-    const navigate = useNavigate();
+  
 
     useEffect(() => {
       if (selectedServicePoint) {
@@ -61,7 +61,7 @@ export const CheckoutButton = () => {
       );
         console.log(selectedServicePoint.name)
       localStorage.setItem("stripeSessionId", response.data.sessionId);
-      // navigate('/checkout-success');
+    
       window.location.href = response.data.url;
     } catch (error) {
       console.error("Checkout error:", error);
