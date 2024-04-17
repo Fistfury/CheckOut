@@ -4,6 +4,8 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { IconicBtn } from "./IconicBtn";
 
+const apiUrl = import.meta.env.VITE_SESSION_KEY;
+
 interface RegisterFormProps {
   onSuccess: () => void;
 }
@@ -19,7 +21,7 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/auth/register",
+        `${apiUrl}/api/auth/register`,
         {
           email,
           password,

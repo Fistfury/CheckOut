@@ -3,6 +3,8 @@ import { useCart } from "../context/CartContext";
 import axios from "axios";
 import { Product } from "../models/interface.model";
 
+const apiUrl = import.meta.env.VITE_SESSION_KEY;
+
 export const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -12,7 +14,7 @@ export const Products = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/stripe/products"
+          `${apiUrl}/api/stripe/products`
         );
 
         setProducts(response.data.data);

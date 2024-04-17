@@ -7,6 +7,9 @@ import {
   useEffect,
 } from "react";
 
+const apiUrl = import.meta.env.VITE_SESSION_KEY;
+
+
 interface User {
   email: string;
   stripeId?: string;
@@ -28,6 +31,8 @@ const initialState: AuthState = {
   user: null,
   isVerified: false,
 };
+
+
 
 const AuthContext = createContext<{
   state: AuthState;
@@ -58,9 +63,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   useEffect(() => {
+  
+  
     const validateSession = async () => {
+     
       try {
-        const response = await axios.get("http://localhost:3000/api/validate/validate-session");
+        const response = await axios.get(`${apiUrl}/api/validate/validate-session`);
         if (response.data.isAuthenticated) {
           const storedStripeId = localStorage.getItem('stripeId');
           dispatch({ type: 'LOGIN', payload: {...response.data.user, stripeId: storedStripeId }});

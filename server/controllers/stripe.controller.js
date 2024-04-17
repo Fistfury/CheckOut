@@ -1,6 +1,8 @@
 const stripe = require("../utils/initStripe");
 const fs = require("fs").promises;
 
+const apiBaseUrl = process.env.REACT_APP_API_URL;
+
 const getProducts = async (req, res) => {
   try {
     const products = await stripe.products.list({
@@ -39,8 +41,8 @@ const createStripeCheckout = async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `http://localhost:5173/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `http://localhost:5173/checkout-canceled`,
+      success_url: `${apiBaseUrl}/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${apiBaseUrl}/checkout-canceled`,
       customer: customerId,
       metadata: {pickupLocation},
       allow_promotion_codes: true,

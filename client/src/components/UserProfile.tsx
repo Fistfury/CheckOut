@@ -3,6 +3,8 @@ import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
 import { Order } from "../models/interface.model";
 
+const apiUrl = import.meta.env.VITE_SESSION_KEY;
+
 export const UserProfile = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const {
@@ -20,7 +22,7 @@ export const UserProfile = () => {
       if (isAuthenticated && user?.stripeId) {
         try {
           setLoading(true);
-          const response = await axios.get(`http://localhost:3000/api/orders/${user.stripeId}`);
+          const response = await axios.get(`${apiUrl}/api/orders/${user.stripeId}`);
          
           setOrders(response.data);
           setLoading(false);

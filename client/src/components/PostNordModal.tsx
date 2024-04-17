@@ -2,6 +2,8 @@ import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import Select from "react-select";
 
+const apiUrl = import.meta.env.VITE_SESSION_KEY;
+
 interface ServicePoint {
   servicePointId: string;
   name: string;
@@ -33,7 +35,7 @@ export const PostNordModal = ({
   const handleFindPickupLocations = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/postnord/pickup-locations`,
+        `${apiUrl}/api/postnord/pickup-locations`,
         { params: { postalCode } }
       );
       setPickupLocations(response.data );

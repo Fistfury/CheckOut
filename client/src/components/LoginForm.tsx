@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { IconicBtn } from "./IconicBtn";
 import { useAuth } from "../context/AuthContext";
 
+const apiUrl = import.meta.env.VITE_SESSION_KEY;
+
 interface LoginFormProps {
   onSuccess: () => void;
 }
@@ -20,7 +22,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/auth/login",
+        `${apiUrl}/api/auth/login`,
         {
           email,
           password,
@@ -59,6 +61,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
             required
+            autoComplete="current-email"
           />
           <input
             className="w-full p-3 mb-4 border border-beard-grey rounded focus:outline-none focus:ring-2 focus:ring-beard-dark focus:border-transparent"
@@ -67,6 +70,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             required
+            autoComplete="current-password" 
           />
           <IconicBtn />
           {message && <p className="text-red-500">{message}</p>}

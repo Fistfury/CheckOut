@@ -5,6 +5,8 @@ import { BiCheck } from "react-icons/bi";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 
+const apiUrl = import.meta.env.VITE_SESSION_KEY;
+
 export const CheckoutSuccess = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -19,7 +21,7 @@ export const CheckoutSuccess = () => {
     }
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/stripe/verify",
+        `${apiUrl}/api/stripe/verify`,
         {
           sessionId,
         }

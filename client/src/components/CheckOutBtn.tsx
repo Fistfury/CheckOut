@@ -4,7 +4,7 @@ import { BsCart2 } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { PostNordModal } from "./PostNordModal";
 
-
+const apiUrl = import.meta.env.VITE_SESSION_KEY;
 interface ServicePoint {
   servicePointId: string;
   name: string;
@@ -19,6 +19,7 @@ export const CheckoutButton = () => {
   
 
     useEffect(() => {
+      console.log(import.meta.env.VITE_SESSION_KEY);;
       if (selectedServicePoint) {
         proceedToCheckout();
       }
@@ -33,7 +34,7 @@ export const CheckoutButton = () => {
       alert("Please select a pickup location first.");
       return;
     }
-    const { data } = await axios.get("http://localhost:3000/api/users/customer-info");
+    const { data } = await axios.get(`${apiUrl}/api/users/customer-info`);
     const customerId = data.stripeId;
     if (!customerId) {
       alert("No customer ID found. Please log in again.");
