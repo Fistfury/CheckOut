@@ -12,7 +12,7 @@ const validateRoutes = require("./routes/validateRoutes")
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://beardcrafter.netlify.app",
     credentials: true,
   })
 );
