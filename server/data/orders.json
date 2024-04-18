@@ -224,5 +224,67 @@
       }
     ],
     "total": 318
+  },
+  {
+    "orderNumber": 99409973,
+    "date": "2024-04-18T12:27:49.951Z",
+    "customerEmail": "scarabeo85@msn.com",
+    "customerId": "cus_Ptos00ws6HgoNB",
+    "pickupLocation": "Coop Stjärnan Västerås",
+    "products": [
+      {
+        "product": {
+          "name": "Heavy Tobacco Vanilla Beard Elixir",
+          "unit_amount": 229
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Sandalwood Luxe Beard Cleanser",
+          "unit_amount": 329
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Silk Essence Beard Conditioner",
+          "unit_amount": 249
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Silk Essence Beard Conditioner",
+          "unit_amount": 249
+        },
+        "quantity": 1
+      }
+    ],
+    "total": 1056
+  },
+  {
+    "orderNumber": 93385710,
+    "date": "2024-04-18T12:42:30.237Z",
+    "customerEmail": "scarabeo85@msn.com",
+    "customerId": "cus_Ptos00ws6HgoNB",
+    "pickupLocation": "Paketbox Gunnilbogatan 11",
+    "products": [
+      {
+        "product": {
+          "name": "Silk Essence Beard Conditioner",
+          "unit_amount": 249
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Heavy Tobacco Vanilla Beard Elixir",
+          "unit_amount": 229
+        },
+        "quantity": 1
+      }
+    ],
+    "total": 478
   }
 ]

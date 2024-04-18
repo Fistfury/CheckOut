@@ -12,7 +12,7 @@ const validateRoutes = require("./routes/validateRoutes")
 const app = express();
 app.use(
   cors({
-    origin: "https://beardcrafter.netlify.app",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(cookieSession({
   name: 'session',
   keys: [process.env.SESSION_KEY],
-  maxAge: 24 * 60 * 60 * 1000 // 24 timmar
+  maxAge: 24 * 60 * 60 * 1000 
 }));
 
 app.use("/api/auth", authRoutes);
@@ -30,5 +30,5 @@ app.use("/api/orders", ordersRoutes);
 app.use("/api/postnord", postnordRoutes);
 app.use("/api/validate", validateRoutes);
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`server is running on ${PORT}`));

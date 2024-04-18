@@ -8,7 +8,6 @@ const apiUrl = import.meta.env.VITE_SESSION_KEY;
 interface ServicePoint {
   servicePointId: string;
   name: string;
-  
 }
 
 export const CheckoutButton = () => {
@@ -16,14 +15,12 @@ export const CheckoutButton = () => {
   const [showPostNordModal, setShowPostNordModal] = useState(false);
   const [selectedServicePoint, setSelectedServicePoint] =
     useState<ServicePoint | null>(null);
-  
 
-    useEffect(() => {
-      console.log(import.meta.env.VITE_SESSION_KEY);;
-      if (selectedServicePoint) {
-        proceedToCheckout();
-      }
-    }, [selectedServicePoint]);
+  useEffect(() => {
+    if (selectedServicePoint) {
+      proceedToCheckout();
+    }
+  }, [selectedServicePoint]);
 
   const proceedToCheckout = async () => {
     if (cart.length === 0) {
@@ -49,20 +46,14 @@ export const CheckoutButton = () => {
         unit_amount: item.product.default_price.unit_amount,
         quantity: item.quantity,
       }));
-   
-      console.log(customerId);
 
-      const response = await axios.post(
-        "http://localhost:3000/api/stripe/checkout",
-        {
-          items,
-          customerId,
-          pickupLocation: selectedServicePoint.name,
-        }
-      );
-        console.log(selectedServicePoint.name)
+      const response = await axios.post(`${apiUrl}/api/stripe/checkout`, {
+        items,
+        customerId,
+        pickupLocation: selectedServicePoint.name,
+      });
       localStorage.setItem("stripeSessionId", response.data.sessionId);
-    
+
       window.location.href = response.data.url;
     } catch (error) {
       console.error("Checkout error:", error);
@@ -72,7 +63,6 @@ export const CheckoutButton = () => {
   const handlePickupLocationSelected = (ServicePoint: ServicePoint) => {
     setSelectedServicePoint(ServicePoint);
     setShowPostNordModal(false);
-    
   };
 
   const handleDirectCheckout = () => {
