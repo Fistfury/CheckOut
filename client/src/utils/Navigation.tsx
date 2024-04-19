@@ -10,6 +10,8 @@ import { useCart } from "../context/CartContext";
 import { AiOutlineDelete } from "react-icons/ai";
 import axios from "axios";
 
+const apiUrl = import.meta.env.VITE_SESSION_KEY;
+
 export const Navigation = () => {
   const { state, dispatch } = useAuth();
   const { cart, clearCart } = useCart();
@@ -21,7 +23,7 @@ const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/logout");
+      const response = await axios.post(`${apiUrl}/api/auth/logout`);
       if (response.status !== 200) {
         throw new Error('Logout failed');
       }

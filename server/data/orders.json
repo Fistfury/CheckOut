@@ -286,5 +286,29 @@
       }
     ],
     "total": 478
+  },
+  {
+    "orderNumber": 15281976,
+    "date": "2024-04-19T07:31:42.877Z",
+    "customerEmail": "scarabeo85@msn.com",
+    "customerId": "cus_Ptos00ws6HgoNB",
+    "pickupLocation": "Paketbox Cedergatan",
+    "products": [
+      {
+        "product": {
+          "name": "Sandalwood Luxe Beard Cleanser",
+          "unit_amount": 329
+        },
+        "quantity": 1
+      },
+      {
+        "product": {
+          "name": "Heavy Tobacco Vanilla Beard Elixir",
+          "unit_amount": 229
+        },
+        "quantity": 1
+      }
+    ],
+    "total": 558
   }
 ]

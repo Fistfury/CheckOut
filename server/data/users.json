@@ -34,5 +34,11 @@
     "email": "Jonnie1@hotmail.com",
     "password": "$2b$12$dXk5siTXHiY8o/PGXmtpsOH3KbQBFgVBmez54xNglevNHfM9alhy2",
     "stripeId": "cus_PvOTxHFFbSMAkl"
+  },
+  {
+    "id": "995bb7af-8050-48de-adbc-e92cde534f42",
+    "email": "karro@hotmail.com",
+    "password": "$2b$12$BiT75Pg4uegXoit/FMLul./rCgFzP.sUcXDoVGVqmFzUOVmSRjwWC",
+    "stripeId": "cus_Px5uIzrGdbXl6V"
   }
 ]
