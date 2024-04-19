@@ -28,14 +28,15 @@ export const Products = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
       {products.map((product: Product) => (
-        <div
+        <div 
           key={product.id}
           className="bg-beard-cream rounded-lg shadow-lg overflow-hidden group"
         >
-          <img
+          <img onClick={() => addToCart(product)}
             src={product.images[0]}
             alt={product.name}
-            className="w-full h-48 object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
+            
+            className="w-full h-48 object-cover transition-transform duration-300 ease-in-out group-hover:scale-110 cursor-pointer"
           />
           <div className="p-4 font-serif text-beard-dark">
             <h3 className="text-lg font-bold">{product.name}</h3>
