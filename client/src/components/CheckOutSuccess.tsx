@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { BiCheck } from "react-icons/bi";
 import { useCart } from "../context/CartContext";
@@ -59,6 +59,12 @@ export const CheckoutSuccess = () => {
       ) : (
         <p className="mt-2 text-lg">Verifying payment, please wait...</p>
       )}
+       <Link
+        to="/"
+        className="mt-4 inline-block bg-beard-dark text-beard-cream px-6 py-2 rounded hover:bg-beard-deep-brown transition duration-300"
+      >
+        Return to Homepage
+      </Link>
     </div>
   );
 };

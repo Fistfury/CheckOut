@@ -13,8 +13,7 @@ export const UserProfile = () => {
   const [loading, setLoading] = useState(true);
 
   console.log("Authenticated:", isAuthenticated);
-  console.log("User:", user);
-  console.log("Stripe ID:", user?.stripeId);
+ 
 
   useEffect(() => {
     const fetchOrders = async () => {

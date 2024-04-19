@@ -9,10 +9,12 @@ const ordersRoutes = require("./routes/ordersRoutes");
 const postnordRoutes = require("./routes/postnordRoutes")
 const validateRoutes = require("./routes/validateRoutes")
 
+
+
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.REACT_APP_API_URL,
     credentials: true,
   })
 );
