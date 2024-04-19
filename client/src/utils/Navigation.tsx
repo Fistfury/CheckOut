@@ -31,6 +31,8 @@ const navigate = useNavigate();
       console.error('Logout error:', error);
     }
     dispatch({ type: "LOGOUT" });
+    localStorage.removeItem('stripeId');
+    localStorage.removeItem('stripeSessionId');
     navigate("/");
     
   };

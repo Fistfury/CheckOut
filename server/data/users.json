@@ -40,5 +40,11 @@
     "email": "karro@hotmail.com",
     "password": "$2b$12$BiT75Pg4uegXoit/FMLul./rCgFzP.sUcXDoVGVqmFzUOVmSRjwWC",
     "stripeId": "cus_Px5uIzrGdbXl6V"
+  },
+  {
+    "id": "0c3b7f7d-1117-49e3-84fe-96bc7453af0a",
+    "email": "tjenis@msn.se",
+    "password": "$2b$12$XAgUpY73CsZwoTd.yeMQ.uINfoFHfRELFzcIq.Bvh6T1fkS8CEf4y",
+    "stripeId": "cus_Px8YMO0DLh5mDs"
   }
 ]
